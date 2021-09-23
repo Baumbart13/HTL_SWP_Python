@@ -11,17 +11,17 @@
   <p align="center">
     Enter a short description for the project here
     <br/>
-    <a href="https://github.com/htl-anichstrasse/template/releases">Releases</a>
+    <a href="https://github.com/baumbart13/HTL_SWP_Python/releases">Releases</a>
     ·
-    <a href="https://github.com/htl-anichstrasse/template/issues">Report Bug</a>
+    <a href="https://github.com/baumbart13/HTL_SWP_Python/issues">Report Bug</a>
     ·
-    <a href="https://github.com/htl-anichstrasse/template/issues">Request Feature</a>
+    <a href="https://github.com/baumbart13/HTL_SWP_Python/issues">Request Feature</a>
   </p>
 </p>
 
 ## About the project
-Enter a description about the project, its history and its goals here.
 
+This is the python stuff we do in school.
 
 ## Installation
 
