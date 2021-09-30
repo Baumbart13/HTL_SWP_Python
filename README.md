@@ -1,4 +1,4 @@
-# Project Name
+# HTL SWP Python
 
 <br/>
 <p align="center">
