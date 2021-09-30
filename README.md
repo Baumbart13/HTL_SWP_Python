@@ -21,13 +21,13 @@
 
 ## About the project
 
-This is the python stuff we do in school.
+This is the Python stuff we do in school.
 
 ## Installation
 
 Clone the repository.
 ```
-git clone https://github.com/htl-anichstrasse/template.git
+git clone https://github.com/Baumbart13/HTL_SWP_Python.git
 ```
 
 ## Contact
