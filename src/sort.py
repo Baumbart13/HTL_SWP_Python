@@ -2,7 +2,7 @@ def bubbleSort(list):
     for i in range(0, len(list)-1):
         for j in range(0,len(list)-i-1):
             if(list[j] > list[j+1]):
-                arr[j],arr[j+1]
+                list[j],list[j+1]
     return list
 
 def insertionSort(list):
@@ -14,9 +14,9 @@ def insertionSort(list):
         j = i-1
 
         while(j >= 0 and list[j] > key):
-            arr[j+1] = arr[j]
+            list[j+1] = list[j]
             j -= 1
-        arr[j+1] = key
+        list[j+1] = key
     return list
 
 def selectionSort(list):
@@ -31,7 +31,7 @@ def selectionSort(list):
         while(min > i):
             list[min] = list[min-1]
             min -= 1
-        arr[i] = key
+        list[i] = key
     return list
 
 # warum miassn ma schu wieda algorithmen machn? meina
