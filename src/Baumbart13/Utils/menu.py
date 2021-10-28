@@ -10,6 +10,7 @@ class Menu:
         self.menuEntries = [{'cmd':'x','action':sys.exit, 'desc':'Exit the program'}]
 
     def show(self):
+        """Returns all menu entries' commands and their descriptions"""
         s = ""
         for i in range(0, len(self.menuEntries)):
             s += '[' + self.menuEntries[i]['cmd'] + '] - '
@@ -21,6 +22,20 @@ class Menu:
             if(self.menuEntries[i]['cmd']==cmd):
                 return self.menuEntries[i]
 
+    def editEntryDesc(self, cmd:str, newDesc:str):
+        for i in range(0, len(self.menuEntries)):
+            if(self.menuEntries[i]['cmd']==cmd):
+                self.menuEntries[i]['desc'] = newDesc
+                return
+        raise Exception("Cannot edit non-existing command's description")
+
+    def editEntryAction(self, cmd:str, newAction):
+        for i in range(0, len(self.menuEntries)):
+            if(self.menuEntries[i]['cmd']==cmd):
+                self.menuEntries[i]['action'] = newAction
+                return
+        raise Exception("Cannot edit non-existing command's action")
+
     def addMenuEntry(self, cmd:str, action, desc:str, index=0):
         """
         :param cmd The command that will be used to take the action
@@ -31,6 +46,7 @@ class Menu:
         self.menuEntries.insert(index, {'cmd':cmd, 'action':action, 'desc':desc})
 
     def reset(self):
+        """Deletes all Entries but the exit-Entry"""
         while(len(self.menuEntries)>1):
             if(self.menuEntries[-1]['cmd']=='x'):
                 self.menuEntries[-1], self.menuEntries[0]

@@ -34,7 +34,7 @@ def selectionSort(list):
         list[i] = key
     return list
 
-# warum miassn ma schu wieda algorithmen machn? meina
+# warum miassn ma schu wieda algorithmen machn? meinaaa
 # wer sudat, weat ned pudat
 
 if __name__ == "__main__":
