@@ -30,6 +30,11 @@ Clone the repository.
 git clone https://github.com/Baumbart13/HTL_SWP_Python.git
 ```
 
+## Sub-Projects
+
+- Rock Paper Scissors Lizard Spock
+   - [Link](./src/Baumbart13/RPS#schere-stein-papier-echse-spock)
+
 ## Contact
 
 If you have any questions about this project, please feel free to contact me.
