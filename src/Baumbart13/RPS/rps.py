@@ -1,6 +1,11 @@
+import src.projectMain
 from src.Baumbart13.Utils import menu as Menu
+from src.Baumbart13.RPS.Signs import *
+
 
 menu = Menu.Menu()
+
+# creating menus
 
 
 def createMainMenu():
@@ -8,6 +13,9 @@ def createMainMenu():
     menu.reset()
     menu.addMenuEntry('play', skirmishMenu, 'Play the Rock, Paper, Scissors, Lizard, Spock!')
     menu.addMenuEntry('view', statsMenu, 'Enter the stats-menu')
+
+    menu.editEntryDesc('x', "Go back to the main project menu")
+    menu.editEntryAction('x', src.projectMain.Main)
 
 
 def createStatsMenu():
@@ -21,11 +29,20 @@ def createStatsMenu():
     menu.editEntryAction('x', mainMenu)
 
 
-def createPlayMenu():
+def createSkirmishMenu():
+    """Creates the menu for the skirmish against the comp."""
     menu.reset()
-    menu.addMenuEntry()
+    menu.addMenuEntry('r', ROCK, "Choose Rock as your weapon")
+    menu.addMenuEntry('r', PAPER, "Choose Paper as your weapon")
+    menu.addMenuEntry('r', SCISSORS, "Choose Scissors as your weapon")
+    menu.addMenuEntry('r', LIZARD, "Choose Lizard as your weapon")
+    menu.addMenuEntry('r', SPOCK, "Choose Spock as your weapon")
+
+    menu.editEntryAction('x', mainMenu)
+    menu.editEntryDesc('x', "Go back to game's main menu")
 
 
+# stats-actions
 
 
 def stats_view():
@@ -40,25 +57,25 @@ def stats_delete():
     pass
 
 
+# menu-actions
 
 
 def statsMenu():
     """The menu for the stats"""
+    createStatsMenu()
+    menu.inputActions()
 
 
 def skirmishMenu():
     """The cycle of a game"""
-    x = input(menu.show())
-    x = menu.getEntry(x)
-    x.get('action')()
+    createSkirmishMenu()
+    menu.inputActions()
 
 
 def mainMenu():
     """This is the main method for the game. Here the game will be initialized and the main menu will be shown."""
     createMainMenu()
-    x = input(menu.show())
-    x = menu.getEntry(x)
-    x.get('action')()
+    menu.inputActions()
 
 
 if __name__ == '__main__':

@@ -9,10 +9,13 @@ def createMenu():
     menu.addMenuEntry('rps', src.Baumbart13.RPS.rps.mainMenu, 'Enter the menu for Rock, Paper, Scissors, Lizard, Spock')
 
 
-if __name__ == '__main__':
+def Main():
     createMenu()
-
     x = input(menu.show())
     x = menu.getEntry(x)
     x.get('action')()
     print('Bye World')
+
+
+if __name__ == '__main__':
+    Main()
