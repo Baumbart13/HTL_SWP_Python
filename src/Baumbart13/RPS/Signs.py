@@ -1,4 +1,5 @@
-import fightOutcome
+import src.Baumbart13.RPS.fightOutcome as FO
+from random import randint
 
 
 class Weapon:
@@ -22,10 +23,22 @@ class Weapon:
         if not isinstance(w, Weapon):
             raise Exception('A weapon can only fight against another weapon. Duh')
         if self.ownValue == w.ownValue:
-            return fightOutcome.fighOutcome.Equal
+            return FO.fighOutcome.Equal
         if (w.allValues & self.ownValue) == self.ownValue:
-            return fightOutcome.fighOutcome.OpponentWins
-        return fightOutcome.fighOutcome.YouWin
+            return FO.fighOutcome.OpponentWins
+        return FO.fighOutcome.YouWin
+
+    def getName(self):
+        if self.ownValue == ROCK().ownValue:
+            return "Rock"
+        if self.ownValue == PAPER().ownValue:
+            return "Paper"
+        if self.ownValue == SCISSORS().ownValue:
+            return "Scissors"
+        if self.ownValue == LIZARD().ownValue:
+            return "Lizard"
+        if self.ownValue == SPOCK().ownValue:
+            return "Spock"
 
 
 def ROCK():
@@ -43,3 +56,8 @@ def LIZARD():
 def SPOCK():
     """Returns the Weapon Spock"""
     return Weapon((1 << 4) | (1 << 2) | (1 << 0), 1 << 4)
+
+
+def getRandomWeapon():
+    weapons = [ROCK(), PAPER(), SCISSORS(), LIZARD(), SPOCK()]
+    return weapons[randint(0, len(weapons)-1)]
