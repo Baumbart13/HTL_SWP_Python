@@ -1,6 +1,7 @@
 import src.projectMain
 from src.Baumbart13.Utils import menu as Menu
 from src.Baumbart13.RPS.Signs import *
+from src.Baumbart13.RPS.fightOutcome import fighOutcome
 
 
 menu = Menu.Menu()
@@ -32,11 +33,11 @@ def createStatsMenu():
 def createSkirmishMenu():
     """Creates the menu for the skirmish against the comp."""
     menu.reset()
-    menu.addMenuEntry('r', ROCK, "Choose Rock as your weapon")
-    menu.addMenuEntry('r', PAPER, "Choose Paper as your weapon")
-    menu.addMenuEntry('r', SCISSORS, "Choose Scissors as your weapon")
-    menu.addMenuEntry('r', LIZARD, "Choose Lizard as your weapon")
-    menu.addMenuEntry('r', SPOCK, "Choose Spock as your weapon")
+    menu.addMenuEntry('rock', ROCK, "Choose Rock as your weapon")
+    menu.addMenuEntry('paper', PAPER, "Choose Paper as your weapon")
+    menu.addMenuEntry('scissors', SCISSORS, "Choose Scissors as your weapon")
+    menu.addMenuEntry('lizard', LIZARD, "Choose Lizard as your weapon")
+    menu.addMenuEntry('spock', SPOCK, "Choose Spock as your weapon")
 
     menu.editEntryAction('x', mainMenu)
     menu.editEntryDesc('x', "Go back to game's main menu")
@@ -69,7 +70,31 @@ def statsMenu():
 def skirmishMenu():
     """The cycle of a game"""
     createSkirmishMenu()
-    menu.inputActions()
+
+    while True:
+        canDoAction = False
+        x = input(menu.show())
+        while not canDoAction:
+            for i in range(0, len(menu.menuEntries)):
+                if menu.menuEntries[i]['cmd'] == x:
+                    canDoAction = True
+                    break
+            if not canDoAction:
+                print("'", x, "'is an unknown command, please try again")
+                x = input(menu.show())
+        x = menu.getEntry(x)
+        player_weapon = x.get('action')()
+        comp_weapon = getRandomWeapon()
+        outcome = player_weapon.fights(comp_weapon)
+        if outcome == fighOutcome.Equal:
+            print("It's a draw!")
+        elif outcome == fighOutcome.YouWin:
+            print("You win this round! {PLAYER:'", player_weapon.getName(), "'> COMP:'", comp_weapon.getName(), "'}")
+        elif outcome == fighOutcome.OpponentWins:
+            print("COMP wins this round! {PLAYER:'", player_weapon.getName(), "'< COMP:'", comp_weapon.getName(), "'}")
+        else:
+            raise Exception("I've got a bad feeling about this")
+
 
 
 def mainMenu():
