@@ -9,8 +9,8 @@ Spielregeln [Samkass](http://www.samkass.com/theories/RPSSL.html)
 Was hier implementiert ist
 ----
 
-1) [ ] Als Terminal-Spiel umsetzen
-2) [ ] Spielmodi ``COMP vs PLAYER``
+1) [x] Als Terminal-Spiel umsetzen
+2) [x] Spielmodi ``COMP vs PLAYER``
 3) [ ] Zähle wer wie oft gewonnen
 4) [ ] Zähle alle gewählte Symbole
 5) [ ] Überlege wie die Daten dauerhaft gespeichert werden
