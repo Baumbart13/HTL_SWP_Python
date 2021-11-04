@@ -52,13 +52,16 @@ class Menu:
         self.addMenuEntry('x', sys.exit, 'Exit the program')
 
     def inputActions(self):
+        canDoAction = False
         x = input(self.show())
-        newX = (-1, x)
-        for i in range(0, len(self.menuEntries)):
-            if self.menuEntries[i]['cmd'] == x:
-                newX = (i, self.menuEntries[i]['cmd'])
-        if x == newX[1]:
-            print("'", x, "' is an unknown command, please try again")
-            self.inputActions()
-        newX = self.getEntry(x)
-        newX.get('action')
+
+        while not canDoAction:
+            for i in range(0, len(self.menuEntries)):
+                if self.menuEntries[i]['cmd'] == x:
+                    canDoAction = True
+                    break
+            if not canDoAction:
+                print("'", x, "'is an unknown command, please try again")
+                x = input(self.show())
+        x = self.getEntry(x)
+        x.get('action')()
