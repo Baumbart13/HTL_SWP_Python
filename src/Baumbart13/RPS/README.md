@@ -2,8 +2,8 @@ Schere Stein Papier Echse Spock
 ====
 
 <details><summary>Helpful Links</summary>
-Spielregeln [BigBangTheory.fandom](https://bigbangtheory.fandom.com/de/wiki/Stein,_Papier,_Schere,_Echse,_Spock)
-Spielregeln [Samkass](http://www.samkass.com/theories/RPSSL.html)
+Spielregeln <a href="https://bigbangtheory.fandom.com/de/wiki/Stein,_Papier,_Schere,_Echse,_Spock">BigBangTheory.fandom</a> <br/>
+Spielregeln <a href="http://www.samkass.com/theories/RPSSL.html">Samkass</a>
 </details>
 
 Was hier implementiert ist
