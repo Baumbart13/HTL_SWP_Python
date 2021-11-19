@@ -1,4 +1,19 @@
+import code
+import inspect
 import sys
+
+
+def _dbg_currDepth():
+    print(len(inspect.stack(0)))
+
+
+def _dbg_interactive():
+    print('Warning, you cannot get back to the script from now on')
+    code.interact(local=locals())
+
+
+def _dbg_stack():
+    inspect.stack()
 
 
 class Menu:
@@ -9,6 +24,10 @@ class Menu:
 
     def __init__(self):
         self.menuEntries = [{'cmd': 'x', 'action': sys.exit, 'desc': 'Exit the program'}]
+        if 'debug' in sys.argv:
+            self.addMenuEntry('dbg_stack', _dbg_stack, 'Show current stack')
+            self.addMenuEntry('dbg_currDepth', _dbg_currDepth, 'Show current stack depth')
+            self.addMenuEntry('dbg_interact', _dbg_interactive, 'Switch to interactive mode. Cannot ')
 
     def show(self):
         """Returns all menu entries' commands and their descriptions"""

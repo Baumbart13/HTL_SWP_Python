@@ -9,7 +9,7 @@ menu = Menu.Menu()
 # creating menus
 
 
-def createMainMenu():
+def _createMainMenu():
     """Creates the main menu. Will automatically be called inside of play"""
     menu.reset()
     menu.addMenuEntry('play', skirmishMenu, 'Play the Rock, Paper, Scissors, Lizard, Spock!')
@@ -19,7 +19,7 @@ def createMainMenu():
     menu.editEntryAction('x', src.projectMain.Main)
 
 
-def createStatsMenu():
+def _createStatsMenu():
     """Creates the stats menu. Statistics are manageable here"""
     menu.reset()
     menu.addMenuEntry('view', stats_view, 'Take a look at some stats')
@@ -30,14 +30,14 @@ def createStatsMenu():
     menu.editEntryAction('x', mainMenu)
 
 
-def createSkirmishMenu():
+def _createSkirmishMenu():
     """Creates the menu for the skirmish against the comp."""
     menu.reset()
-    menu.addMenuEntry('rock', ROCK, "Choose Rock as your weapon")
-    menu.addMenuEntry('paper', PAPER, "Choose Paper as your weapon")
-    menu.addMenuEntry('scissors', SCISSORS, "Choose Scissors as your weapon")
-    menu.addMenuEntry('lizard', LIZARD, "Choose Lizard as your weapon")
-    menu.addMenuEntry('spock', SPOCK, "Choose Spock as your weapon")
+    menu.addMenuEntry('rock', Weapon.ROCK, "Choose Rock as your weapon")
+    menu.addMenuEntry('paper', Weapon.PAPER, "Choose Paper as your weapon")
+    menu.addMenuEntry('scissors', Weapon.SCISSORS, "Choose Scissors as your weapon")
+    menu.addMenuEntry('lizard', Weapon.LIZARD, "Choose Lizard as your weapon")
+    menu.addMenuEntry('spock', Weapon.SPOCK, "Choose Spock as your weapon")
 
     menu.editEntryAction('x', mainMenu)
     menu.editEntryDesc('x', "Go back to game's main menu")
@@ -63,13 +63,13 @@ def stats_delete():
 
 def statsMenu():
     """The menu for the stats"""
-    createStatsMenu()
+    _createStatsMenu()
     menu.inputActions()
 
 
 def skirmishMenu():
     """The cycle of a game"""
-    createSkirmishMenu()
+    _createSkirmishMenu()
 
     while True:
         canDoAction = False
@@ -83,7 +83,9 @@ def skirmishMenu():
                 print("'", x, "'is an unknown command, please try again")
                 x = input(menu.show())
         x = menu.getEntry(x)
-        player_weapon = x.get('action')()
+        if x.get('action') == mainMenu:
+            x.get('action')()
+        player_weapon = x.get('action')
         comp_weapon = getRandomWeapon()
         outcome = player_weapon.fights(comp_weapon)
         if outcome == fighOutcome.Equal:
@@ -96,10 +98,9 @@ def skirmishMenu():
             raise Exception("I've got a bad feeling about this")
 
 
-
 def mainMenu():
     """This is the main method for the game. Here the game will be initialized and the main menu will be shown."""
-    createMainMenu()
+    _createMainMenu()
     menu.inputActions()
 
 
