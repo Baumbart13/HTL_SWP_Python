@@ -14,7 +14,7 @@ Was hier implementiert ist
 3) [ ] Zähle wer wie oft gewonnen
 4) [ ] Zähle alle gewählte Symbole
 5) [ ] Überlege wie die Daten dauerhaft gespeichert werden
-6) [ ] Biete ein Menü an Spielen, Statistik, Daten Uploaden
+6) [x] Biete ein Menü an Spielen, Statistik, Daten Uploaden
 7) [ ] Sende an eine API deine Statistik (Name+Symbol+Symbolanzahl)
 
 FLAASK-API (Freiwillige vor!)

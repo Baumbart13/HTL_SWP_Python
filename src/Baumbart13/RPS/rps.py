@@ -2,9 +2,13 @@ import src.projectMain
 from src.Baumbart13.Utils import menu as Menu
 from src.Baumbart13.RPS.Signs import *
 from src.Baumbart13.RPS.fightOutcome import fighOutcome
+from src.Baumbart13.RPS.statistics import Counter
+from src.Baumbart13.RPS.statistics import Game
+from src.Baumbart13.RPS.statistics import Turn
 
 
 menu = Menu.Menu()
+stats = Counter()
 
 # creating menus
 
@@ -23,8 +27,6 @@ def _createStatsMenu():
     """Creates the stats menu. Statistics are manageable here"""
     menu.reset()
     menu.addMenuEntry('view', stats_view, 'Take a look at some stats')
-    menu.addMenuEntry('save', stats_save, 'Save your temporarily saved file permanently')
-    menu.addMenuEntry('del', stats_delete, 'Delete all permanently saved stats')
 
     menu.editEntryDesc('x', 'Go back to the game\'s main menu')
     menu.editEntryAction('x', mainMenu)
@@ -47,15 +49,9 @@ def _createSkirmishMenu():
 
 
 def stats_view():
-    pass
-
-
-def stats_save():
-    pass
-
-
-def stats_delete():
-    pass
+    out = ""
+    for g in game:
+        out += "{game}\n\n", g.toString()
 
 
 # menu-actions
@@ -88,6 +84,9 @@ def skirmishMenu():
         player_weapon = x.get('action')
         comp_weapon = getRandomWeapon()
         outcome = player_weapon.fights(comp_weapon)
+
+        t = Turn(player_weapon, comp_weapon)
+
         if outcome == fighOutcome.Equal:
             print("It's a draw!")
         elif outcome == fighOutcome.YouWin:
