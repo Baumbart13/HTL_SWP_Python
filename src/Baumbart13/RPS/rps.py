@@ -2,13 +2,12 @@ import src.projectMain
 from src.Baumbart13.Utils import menu as Menu
 from src.Baumbart13.RPS.Signs import *
 from src.Baumbart13.RPS.fightOutcome import fighOutcome
-from src.Baumbart13.RPS.statistics import Counter
 from src.Baumbart13.RPS.statistics import Game
 from src.Baumbart13.RPS.statistics import Turn
 
 
 menu = Menu.Menu()
-stats = Counter()
+stats = Game()
 
 # creating menus
 
@@ -26,7 +25,8 @@ def _createMainMenu():
 def _createStatsMenu():
     """Creates the stats menu. Statistics are manageable here"""
     menu.reset()
-    menu.addMenuEntry('view', stats_view, 'Take a look at some stats')
+    menu.addMenuEntry('view', stats.text, 'Take a look at some stats')
+    menu.addMenuEntry('save', stats.saveToFile, 'Save your stats to the computer')
 
     menu.editEntryDesc('x', 'Go back to the game\'s main menu')
     menu.editEntryAction('x', mainMenu)
