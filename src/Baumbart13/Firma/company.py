@@ -4,19 +4,19 @@ import companyAssets as cA
 class Company:
 
     def __init__(self):
-        self.persons = [cA.Person()]
-        self.persons.clear()
+        self.persons = []
+        self.department_counters = {}
+        [self.department_counters.setdefault(i, 0) for i in cA.Department]
 
     def add_person(self, p: cA.Person):
         if not isinstance(p, cA.Person):
             raise Exception()
         self.persons.append(p)
+        self.department_counters[p.dep] += 1
 
     def add_persons(self, l: list):
         for p in l:
-            if not isinstance(p, cA.Person):
-                continue
-            self.persons.append(p)
+            self.add_person(p)
 
     def get_all_persons(self):
         return self.persons
@@ -38,8 +38,8 @@ class Company:
     def get_departments(self):
         return cA.Department
 
-    def get_number_departments(self):
-        return len(self.get_departments())
+    def get_department_with_most_employees(self):
+        return max(self.department_counters, key=self.department_counters.get)
 
     def get_gender_amount(self, s: cA.Sex):
         if not isinstance(s, cA.Sex):
@@ -61,3 +61,17 @@ class Company:
             if e.dep == dep:
                 es.append(e)
         return es
+
+
+if __name__ == '__main__':
+    employees = [cA.Person(), cA.Person(), cA.Person(), cA.Mitarbeiter(), cA.Mitarbeiter(), cA.Mitarbeiter(),
+                 cA.Gruppenleiter(), cA.Gruppenleiter(), cA.Gruppenleiter()]
+    c = Company()
+    c.add_persons(employees)
+
+    print(f'Number of all persons: {len(c.get_all_persons())}\n'
+        f'Number of all Mitarbeiter: {len(c.get_all_mitarbeiter())}\n'
+        f'Number of all Gruppenleiter {len(c.get_all_gruppenleiter())}')
+    print(f'Number of all departments: {len(c.get_departments())}')
+    print(f'Department with most employees: {c.get_department_with_most_employees()}')
+    print(f'Percentage of females males: {c.get_gender_percentage(cA.Sex.FeMale):{3}.{6}}%')

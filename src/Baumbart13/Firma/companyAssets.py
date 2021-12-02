@@ -1,18 +1,18 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class Sex(Enum):
     Indeterminable = 0,
-    Male = 1,
-    FeMale = 2
+    Male = auto(),
+    FeMale = auto()
 
 
 class Department(Enum):
     NoDepartment = 0,
-    EconomicalEngineering = 1,
-    BiomedicalEngineering = 2,
-    ElectricalEngineering = 3,
-    MechanicalEngineering = 4
+    EconomicalEngineering = auto(),
+    BiomedicalEngineering = auto(),
+    ElectricalEngineering = auto(),
+    MechanicalEngineering = auto()
 
 
 class Person:
