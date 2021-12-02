@@ -16,7 +16,7 @@ Programmiere in Python:
 #### Biete folgende Methoden an:
 
 - [ ] Man muss alle Objekte instanzieren können
-- [ ] Wieviele Mitarbeiter, Gruppenleiter gibts in der Firma
-- [ ] Wieviel Abteilungen gibt es
+- [x] Wieviele Mitarbeiter, Gruppenleiter gibts in der Firma
+- [x] Wieviel Abteilungen gibt es
 - [ ] Welche Abteilung hat die größte Mitarbeiterstärke
-- [ ] Wie ist der Prozentanteil Frauen Männer
+- [x] Wie ist der Prozentanteil Frauen Männer

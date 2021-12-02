@@ -34,6 +34,8 @@ git clone https://github.com/Baumbart13/HTL_SWP_Python.git
 
 - Rock Paper Scissors Lizard Spock
    - [Link](./src/Baumbart13/RPS#schere-stein-papier-echse-spock)
+- Learning about classes and inheritance in Python
+   - [Link](./src/Baumbart13/Firma#Programmiere-in-Python)
 
 ## Contact
 
