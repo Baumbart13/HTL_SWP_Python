@@ -1,4 +1,4 @@
-import src.Baumbart13.Firma.companyAssets as cA
+import companyAssets as cA
 
 
 class Company:
@@ -11,6 +11,12 @@ class Company:
         if not isinstance(p, cA.Person):
             raise Exception()
         self.persons.append(p)
+
+    def add_persons(self, l: list):
+        for p in l:
+            if not isinstance(p, cA.Person):
+                continue
+            self.persons.append(p)
 
     def get_all_persons(self):
         return self.persons
@@ -25,7 +31,7 @@ class Company:
     def get_all_gruppenleiter(self):
         gs = []
         for g in self.persons:
-            if g is isinstance(g, cA.Gruppenleiter):
+            if isinstance(g, cA.Gruppenleiter):
                 gs.append(g)
         return gs
 
@@ -36,7 +42,7 @@ class Company:
         return len(self.get_departments())
 
     def get_gender_amount(self, s: cA.Sex):
-        if isinstance(s, cA.Sex):
+        if not isinstance(s, cA.Sex):
             raise Exception()
         gs = []
         for g in self.persons:
@@ -45,10 +51,10 @@ class Company:
         return gs
 
     def get_gender_percentage(self, s: cA.Sex):
-        return len(self.get_gender_amount(s)) / len(self.persons)
+        return 100 * len(self.get_gender_amount(s)) / len(self.persons)
 
     def get_persons_by_department(self, dep: cA.Department):
-        if isinstance(dep, cA.Department):
+        if not isinstance(dep, cA.Department):
             raise Exception()
         es = []
         for e in self.persons:
