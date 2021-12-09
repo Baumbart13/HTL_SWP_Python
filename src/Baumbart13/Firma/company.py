@@ -22,17 +22,11 @@ class Company:
         return self.persons
 
     def get_all_mitarbeiter(self):
-        ms = []
-        for m in self.persons:
-            if isinstance(m, cA.Mitarbeiter):
-                ms.append(m)
+        ms = [m for m in self.persons if isinstance(m, cA.Mitarbeiter)]
         return ms
 
     def get_all_gruppenleiter(self):
-        gs = []
-        for g in self.persons:
-            if isinstance(g, cA.Gruppenleiter):
-                gs.append(g)
+        gs = [g for g in self.persons if isinstance(g, cA.Gruppenleiter)]
         return gs
 
     def get_departments(self):
@@ -44,10 +38,7 @@ class Company:
     def get_gender_amount(self, s: cA.Sex):
         if not isinstance(s, cA.Sex):
             raise Exception()
-        gs = []
-        for g in self.persons:
-            if g.sex == s:
-                gs.append(g)
+        gs = [g for g in self.persons if g.sex == s]
         return gs
 
     def get_gender_percentage(self, s: cA.Sex):
@@ -56,10 +47,7 @@ class Company:
     def get_persons_by_department(self, dep: cA.Department):
         if not isinstance(dep, cA.Department):
             raise Exception()
-        es = []
-        for e in self.persons:
-            if e.dep == dep:
-                es.append(e)
+        es = [e for e in self.persons if e.dep == dep]
         return es
 
 

@@ -25,4 +25,4 @@ Programmiere in Python:
 
 #### Weiters:
 
-- [ ] Mindestens 1 List-Comprehension [W3Schools](https://www.w3schools.com/python/python_lists_comprehension.asp)
+- [x] Mindestens 1 List-Comprehension [W3Schools](https://www.w3schools.com/python/python_lists_comprehension.asp)
