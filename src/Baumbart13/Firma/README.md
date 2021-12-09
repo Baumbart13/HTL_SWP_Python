@@ -20,3 +20,9 @@ Programmiere in Python:
 - [x] Wieviel Abteilungen gibt es
 - [x] Welche Abteilung hat die größte Mitarbeiterstärke
 - [x] Wie ist der Prozentanteil Frauen Männer
+
+----
+
+#### Weiters:
+
+- [ ] Mindestens 1 List-Comprehension [W3Schools](https://www.w3schools.com/python/python_lists_comprehension.asp)
