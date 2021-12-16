@@ -69,7 +69,7 @@ class Game:
         for fo in fighOutcome:
             out.join("[{ts}] {foName}: {foAmount}\n".format(
                 ts=self.timestamp,
-                foName=fo.getName(),
+                foName=fo.name,
                 foAmount=len(self.getWins(fo)))
             )
 

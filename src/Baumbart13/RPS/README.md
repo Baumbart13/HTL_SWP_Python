@@ -11,9 +11,9 @@ Was hier implementiert ist
 
 1) [x] Als Terminal-Spiel umsetzen
 2) [x] Spielmodi ``COMP vs PLAYER``
-3) [ ] Zähle wer wie oft gewonnen
-4) [ ] Zähle alle gewählte Symbole
-5) [ ] Überlege wie die Daten dauerhaft gespeichert werden
+3) [x] Zähle wer wie oft gewonnen
+4) [x] Zähle alle gewählte Symbole
+5) [x] Überlege wie die Daten dauerhaft gespeichert werden
 6) [x] Biete ein Menü an Spielen, Statistik, Daten Uploaden
 7) [ ] Sende an eine API deine Statistik (Name+Symbol+Symbolanzahl)
 
