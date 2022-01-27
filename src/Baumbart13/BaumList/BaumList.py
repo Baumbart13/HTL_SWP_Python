@@ -98,51 +98,68 @@ class BaumList:
 					raise Exception("Index out of bounds")
 
 	def remove(self, index):
+		if index == 0:
+			self.removeFront()
+			return
 		l = self.length()
+		if index == l-1:
+			self.removeBack()
+			return
 		if index >= l:
 			raise Exception("Index out of bounds")
 		if index < 0:
 			index = l + index
-
-		toBeRemovedNode = self.last
-		currIndex = l - 1
+		index -= 1
+		toBeRemovedNode = self.first
+		currIndex = 0
+		while toBeRemovedNode.nextNode is not None:
+			toBeRemovedNode = toBeRemovedNode.nextNode
+			currIndex += 1
+			if currIndex == index:
+				prevNode = toBeRemovedNode.prevNode
+				nextNode = toBeRemovedNode.nextNode
+				prevNode.nextNode = nextNode
+				nextNode.prevNode = prevNode
+				toBeRemovedNode = None
+		return
+		#
 		# start from right, go to left
-		if index > int(l * 0.5):
-			# currIndex = l-1 # redundant
-			# currNode = self.last # redundant
-			while toBeRemovedNode.prevNode is not None:
-				if currIndex == index:
-					return toBeRemovedNode.item
-				toBeRemovedNode = toBeRemovedNode.prevNode
-				currIndex -= 1
-				if currIndex < 0:
-					raise Exception("Index out of bounds")
-		# start from left, go to right
-		else:
-			currIndex = 0
-			toBeRemovedNode = self.first
-			while toBeRemovedNode.nextNode is not None:
-				if currIndex == index:
-					return toBeRemovedNode.item
-				toBeRemovedNode = toBeRemovedNode.nextNode
-				currIndex += 1
-				if currIndex >= l:
-					raise Exception("Index out of bounds")
-
-		# unlink found
-		prevTemp = toBeRemovedNode.prevNode
-		nextTemp = toBeRemovedNode.nextNode
-		prevTemp.nextNode = nextTemp
-		nextTemp.prevNode = prevTemp
-
-		# cleanup?
-		toBeRemovedNode.nextNode = None
-		toBeRemovedNode.prevNode = None
-		toBeRemovedNode.item = None
-		del (toBeRemovedNode.nextNode)
-		del (toBeRemovedNode.prevNode)
-		del (toBeRemovedNode.item)
-		del (toBeRemovedNode)
+		# if index > int(l * 0.5):
+		# 	# currIndex = l-1 # redundant
+		# 	# currNode = self.last # redundant
+		# 	while toBeRemovedNode.prevNode is not None:
+		# 		if currIndex == index:
+		# 			return toBeRemovedNode.item
+		# 		toBeRemovedNode = toBeRemovedNode.prevNode
+		# 		currIndex -= 1
+		# 		if currIndex < 0:
+		# 			raise Exception("Index out of bounds")
+		# # start from left, go to right
+		# else:
+		# 	currIndex = 0
+		# 	toBeRemovedNode = self.first
+		# 	while toBeRemovedNode.nextNode is not None:
+		# 		if currIndex == index:
+		# 			return toBeRemovedNode.item
+		# 		toBeRemovedNode = toBeRemovedNode.nextNode
+		# 		currIndex += 1
+		# 		if currIndex >= l:
+		# 			raise Exception("Index out of bounds")
+		#
+		# # unlink found
+		# prevTemp = toBeRemovedNode.prevNode
+		# nextTemp = toBeRemovedNode.nextNode
+		# prevTemp.nextNode = nextTemp
+		# nextTemp.prevNode = prevTemp
+		#
+		# # cleanup?
+		# toBeRemovedNode.nextNode = None
+		# toBeRemovedNode.prevNode = None
+		# toBeRemovedNode.item = None
+		# del (toBeRemovedNode.nextNode)
+		# del (toBeRemovedNode.prevNode)
+		# del (toBeRemovedNode.item)
+		# del (toBeRemovedNode)
 
 	def hasElement(self, item):
 		currNode = self.first
