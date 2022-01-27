@@ -28,10 +28,12 @@ class BaumList:
 			node.prevNode = None
 			self.last = node
 			return
-		node.nextNode = self.last.nextNode
-		node.prevNode = self.last
-		self.last.nextNode.prevNode = node
-		self.last.nextNode
+		currNode = self.first
+		while currNode.nextNode is not None:
+			currNode = currNode.nextNode
+		currNode.nextNode = node
+		node.prevNode = currNode
+		self.last = node
 
 	def addFirst(self, item):
 		node = Node(item)
