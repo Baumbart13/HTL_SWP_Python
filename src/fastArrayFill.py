@@ -9,6 +9,9 @@ import time
 NoElements = 500000000  # allocating about 4Gigs of memory
 
 
+def fillWithMap():
+    return 3
+
 def runThis():
     print('Measuring times, that are needed to fill a container with 1 specific value')
 
@@ -48,6 +51,13 @@ def runThis():
     end = time.time()
     del (arr)
     print('using "map": ', end - start)
+
+    arr = [int]*NoElements
+    start = time.time()
+    arr = list(map(fillWithMap, arr))
+    end = time.time()
+    del(arr)
+    print('using non-lambda function: ', end-start)
 
     print('done')
 
