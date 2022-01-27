@@ -185,7 +185,7 @@ class BaumList:
 	def reverse(self):
 		l = self.toPythonList()
 		self.clear()
-		for i in range(len(l) - 1, 0, -1):
+		for i in range(len(l) - 1, -1, -1):
 			self.addFirst(l[i])
 
 	def toString(self):

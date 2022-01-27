@@ -32,7 +32,7 @@ if __name__ == '__main__':
 	print('remove(1) - "[1, 3]": ', l.toString())  # should print '[1, 3]'
 
 	l.reverse()
-	#assert l.toString() == '[3, 1]' # TODO: ask teacher -> reverse(). Currently printing '[2]'
+	#assert l.toString() == '[3, 1]' # TODO: fix remove(index) to be able to assert it
 	print('reverse() - "[3, 1]": ', l.toString())  # should print '[3, 1]'
 
 	l.clear()
