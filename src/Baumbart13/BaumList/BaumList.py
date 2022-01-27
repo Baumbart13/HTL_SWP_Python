@@ -1,78 +1,177 @@
 class Node:
 
-    def __init__(self, item=0):
-        self.item = item
-        self.nextNode = Node()
-        self.prevNode = Node()
+	def __init__(self, item=None):
+		self.item = item
+		self.nextNode = None
+		self.prevNode = None
 
 
 class BaumList:
-    def __init__(self):
-        self.first = Node()
-        self.last = Node()
-        self.length = 0
+	def __init__(self):
+		self.first = Node()
+		self.last = Node()
+		self.clear()
 
-    def addFirst(self, item):
-        newNode = Node(item)
-        newNode.nextNode = self.first
+	def length(self):
+		curr = self.first
+		size = 0
+		while curr.nextNode is not None:
+			curr = curr.nextNode
+			size += 1
+		return size
 
-        if self.last is None:
-            self.last = newNode
-        self.first.prevNode = newNode
+	def addLast(self, item):
+		node = Node(item)
 
-    def addLast(self, item):
-        newNode = Node(item)
+		if self.last is None:
+			node.nextNode = None
+			node.prevNode = None
+			self.last = node
+			return
+		node.nextNode = self.last.nextNode
+		node.prevNode = self.last
+		self.last.nextNode.prevNode = node
+		self.last.nextNode
 
-        if self.first is None:
-            self.first = newNode
+	def addFirst(self, item):
+		node = Node(item)
 
-        if self.last is not None:
-            self.last.nextNode = newNode
+		if self.first is None:
+			node.nextNode = None
+			node.prevNode = None
+			self.first = node
+			return
+		oldFirst = self.first
+		oldFirst.prevNode = node
+		node.nextNode = oldFirst
+		self.first = node
 
-    def get(self, index):
-        if index >= self.length:
-            raise Exception("Index out of range")
+		if self.length() == 1:
+			self.last = self.first
 
-        if index > self.length * 0.5:
-            currIndex = self.length - 1
-            n = self.last
-            while n is not None:
-                if currIndex == index:
-                    return n.item
-                n = n.prev
-                currIndex -= 1
-        else:
-            currIndex = 0
-            n = self.first
-            while n is not None:
-                if currIndex == index:
-                    return n.item
-                n = n.next
-                currIndex += 1
-        return 0
+	def removeBack(self):
+		oldLastValue = self.last.item
+		self.remove(self.length() - 1)
+		return oldLastValue
 
-    def remove(self, index):
-        if index > self.length:
-            raise Exception("Index out of range")
+	def removeFront(self):
+		oldFirstValue = self.first.item
+		self.remove(0)
+		return oldFirstValue
 
-        if index > self.length * 0.5:
-            currIndex = self.length - 1
-            n = self.last
-            while n is not None:
-                if currIndex == index:
-                    n.prevNode.nextNode = n.nextNode
-                    n.nextNode.prevNode = n.prevNode
-                    del(n)
-                    break
-                currIndex -= 1
-        else:
-            currIndex = 0
-            n = self.first
-            while n is not None:
-                if currIndex == index:
-                    n.nextNode.prevNode = n.prevNode
-                    n.prevNode.nextNode = n.nextNode
-                    del(n)
-                    break
-                currIndex += 1
-        return
+	def get(self, index):
+		l = self.length()
+		if index >= l:
+			raise Exception("Index out of bounds")
+		if index < 0:
+			index = l + index
+
+		# start from right, go to left
+		currNode = self.last
+		currIndex = l - 1
+		if index > l * 0.5:
+			# currIndex = l-1 # redundant
+			# currNode = self.last # redundant
+			while currNode.prevNode is not None:
+				currNode = currNode.prevNode
+				currIndex -= 1
+				if currIndex == index:
+					return currNode.item
+				if currIndex < 0:
+					raise Exception("Index out of bounds")
+		# start from left, go to right
+		else:
+			currIndex = 0
+			currNode = self.first
+			while currNode.nextNode is not None:
+				currNode = currNode.nextNode
+				currIndex += 1
+				if currIndex == index:
+					return currNode.item
+				if currIndex >= l:
+					raise Exception("Index out of bounds")
+
+	def remove(self, index):
+		l = self.length()
+		if index >= l:
+			raise Exception("Index out of bounds")
+		if index < 0:
+			index = l + index
+
+		toBeRemovedNode = self.last
+		currIndex = l - 1
+		# start from right, go to left
+		if index > int(l * 0.5):
+			# currIndex = l-1 # redundant
+			# currNode = self.last # redundant
+			while toBeRemovedNode.prevNode is not None:
+				if currIndex == index:
+					return toBeRemovedNode.item
+				toBeRemovedNode = toBeRemovedNode.prevNode
+				currIndex -= 1
+				if currIndex < 0:
+					raise Exception("Index out of bounds")
+		# start from left, go to right
+		else:
+			currIndex = 0
+			toBeRemovedNode = self.first
+			while toBeRemovedNode.nextNode is not None:
+				if currIndex == index:
+					return toBeRemovedNode.item
+				toBeRemovedNode = toBeRemovedNode.nextNode
+				currIndex += 1
+				if currIndex >= l:
+					raise Exception("Index out of bounds")
+
+		# unlink found
+		prevTemp = toBeRemovedNode.prevNode
+		nextTemp = toBeRemovedNode.nextNode
+		prevTemp.nextNode = nextTemp
+		nextTemp.prevNode = prevTemp
+
+		# cleanup?
+		toBeRemovedNode.nextNode = None
+		toBeRemovedNode.prevNode = None
+		toBeRemovedNode.item = None
+		del (toBeRemovedNode.nextNode)
+		del (toBeRemovedNode.prevNode)
+		del (toBeRemovedNode.item)
+		del (toBeRemovedNode)
+
+	def hasElement(self, item):
+		currNode = self.first
+		while currNode.nextNode is not None:
+			if currNode.item == item:
+				return True
+			currNode = currNode.nextNode
+		return False
+
+	def clear(self):
+		self.first = None
+		self.last = None
+
+	def toPythonList(self):
+		l = []
+		currNode = self.first
+		l.append(currNode.item)
+		while currNode.nextNode is not None:
+			currNode = currNode.nextNode
+			l.append(currNode.item)
+		return l
+
+	def reverse(self):
+		l = self.toPythonList()
+		self.clear()
+		for i in range(len(l) - 1, 0, -1):
+			self.addFirst(l[i])
+
+	def toString(self):
+		currNode = self.first
+		string = '['
+		if currNode is None:
+			return string + ']'
+		string = string + str(currNode.item)
+		while currNode.nextNode is not None:
+			currNode = currNode.nextNode
+			string = string + ", " + str(currNode.item)
+		return string + ']'
