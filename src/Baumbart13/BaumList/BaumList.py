@@ -59,9 +59,11 @@ class BaumList:
 		return value
 
 	def removeFront(self):
-		oldFirstValue = self.first.item
-		self.remove(0)
-		return oldFirstValue
+		value = self.first.item
+		newFirst = self.first.nextNode
+		newFirst.prevNode = None
+		self.first = newFirst
+		return value
 
 	def get(self, index):
 		l = self.length()
