@@ -395,3 +395,20 @@ class LinkedBaumList:
 			currNode = currNode.nextNode
 			string = string + ", " + str(currNode.item)
 		return string + ']'
+
+	def sortAsc(self):
+		i = 1
+		j = 1
+		k = self.first
+		for i in range(1, len(self), 1):
+			key = self[i]
+			j = i-1
+
+			while j >= 0 and self[j] > key:
+				self[j+1] = self[j]
+				j -= 1
+			self[j+1] = key
+
+	def sortDesc(self):
+		self.sortAsc()
+		self.reverse()
