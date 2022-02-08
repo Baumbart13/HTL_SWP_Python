@@ -51,7 +51,7 @@ def _testSpecificLinkedList():
 	print('clear() -                "[]" :', str(l))  # should print '[]'
 
 def _testSpecificArrayList():
-	from src.Baumbart13.BaumList.LinkedBaumList import LinkedBaumList as ArrayBaumList
+	from src.Baumbart13.BaumList.ArrayBaumList import ArrayBaumList
 	print('\n\n===== Asserting main functionality of ArrayBaumList ====')
 	l = ArrayBaumList()
 	assert str(l) == '[]'
