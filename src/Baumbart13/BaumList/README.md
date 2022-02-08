@@ -21,11 +21,11 @@ GIT!
 NEUE zusätzliche Methoden zu implementieren bis 2022 Februar 24:
 ====
 
-- [ ] ``insertAfter``
-- [ ] ``insertbefore``
-- [ ] ``deleteAfter``
-- [ ] ``deleteBefore``
-- [ ] ``find``
+- [x] ``insertAfter``
+- [x] ``insertbefore``
+- [x] ``deleteAfter``
+- [x] ``deleteBefore``
+- [x] ``find``
 
 für die ``before`` Methoden benötigen Sie die doppelt verkettete Liste!
 
