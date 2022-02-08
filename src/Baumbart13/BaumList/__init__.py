@@ -1,6 +1,9 @@
+import random
+
+
 def _isSorted(baumList) -> bool:
 	for i in range(1, len(baumList), 1):
-		if baumList[i-1] > baumList[i]:
+		if baumList[i - 1] > baumList[i]:
 			return False
 	return True
 
@@ -8,6 +11,7 @@ def _isSorted(baumList) -> bool:
 def _isSortedReversed(baumList) -> bool:
 	baumList.reverse()
 	return _isSorted(baumList)
+
 
 def _testSpecificLinkedList():
 	from src.Baumbart13.BaumList.LinkedBaumList import LinkedBaumList
@@ -49,6 +53,7 @@ def _testSpecificLinkedList():
 	l.clear()
 	assert str(l) == '[]'
 	print('clear() -                "[]" :', str(l))  # should print '[]'
+
 
 def _testSpecificArrayList():
 	from src.Baumbart13.BaumList.ArrayBaumList import ArrayBaumList
@@ -92,7 +97,21 @@ def _testSpecificArrayList():
 	print('clear() -                "[]" :', str(l))  # should print '[]'
 
 
+def _testLinkedList():
+	from time import perf_counter as timestamp
+	rng = random.Random()
+	noElements = 10_000
+	l = [int(rng.random()*noElements*10)for i in range(noElements)]
+	from src.Baumbart13.BaumList.LinkedBaumList import LinkedBaumList
+	ll = LinkedBaumList.fromPythonList(l)
+	start = timestamp()
+	ll.sortAsc()
+	stop = timestamp()
+	sorted = _isSorted(ll)
+	assert sorted
+	print(f"List is {'sorted' if sorted else 'unsorted'}")
+
 
 if __name__ == '__main__':
 	_testSpecificLinkedList()
-	#_testSpecificArrayList()
+# _testSpecificArrayList()
