@@ -33,10 +33,10 @@ für die ``before`` Methoden benötigen Sie die doppelt verkettete Liste!
 NEUE zusätzliche Methoden zu implementieren bis 2022 März 03:
 ====
 
-- [ ] ``sortASC``
-- [ ] ``sortDESC``
+- [x] ``sortASC``
+- [x] ``sortDESC``
 
-- [ ] Sortieralgo ist der **Insertionsort**
+- [x] Sortieralgo ist der **Insertionsort**
 
 
 NEU zu implementieren bis 2022 März 10:
@@ -49,11 +49,11 @@ NEUE zu implementieren bis 2022 März 17:
 ====
 
 TESTs schreiben:
-- [ ] 10.000 elemente erzeugen
+- [x] 10.000 elemente erzeugen
 - [ ] in beide Varianten (DoppelteVerkettet, ArrayList) einfügen
-- [ ] Zeit Messen
-- [ ] Sortierung durchführen
-- [ ] Zeit Messen
+- [x] Zeit Messen
+- [x] Sortierung durchführen
+- [x] Zeit Messen
 
 Tabelle erstellen für beide Varianten:
 - [ ] je Methode die Aufwandsklasse angeben
