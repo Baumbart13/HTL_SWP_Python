@@ -42,7 +42,7 @@ NEUE zusätzliche Methoden zu implementieren bis 2022 März 03:
 NEU zu implementieren bis 2022 März 10:
 ====
 
-- [ ] alternative Implementierung mit ArrayList als Datenstruktur
+- [x] alternative Implementierung mit ArrayList als Datenstruktur
 
 
 NEUE zu implementieren bis 2022 März 17:
@@ -50,7 +50,7 @@ NEUE zu implementieren bis 2022 März 17:
 
 TESTs schreiben:
 - [x] 10.000 elemente erzeugen
-- [ ] in beide Varianten (DoppelteVerkettet, ArrayList) einfügen
+- [x] in beide Varianten (DoppelteVerkettet, ArrayList) einfügen
 - [x] Zeit Messen
 - [x] Sortierung durchführen
 - [x] Zeit Messen
