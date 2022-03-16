@@ -166,6 +166,11 @@ class LinkedBaumList:
         return x
 
     def add(self, index: int, item):
+        """
+        :param index: If this is None, then the item will be added as the last item
+        :param item: The item to be added
+        :return: Nothing
+        """
         if index is None:
             self._linkLast(item)
             return
@@ -174,7 +179,7 @@ class LinkedBaumList:
         if index >= self._count or index <= -self._count:
             raise IndexError()
         if index < 0:
-            index = self._count + index
+            index = self._count - index
         self._checkPositionIndex(index)
         if index == self._count:
             self._linkLast(item)
@@ -397,43 +402,43 @@ class LinkedBaumList:
         return string + ']'
 
     def sortAsc(self):
-        for x in range(1, len(self), 1):
-            l = 0
-            r = x-1
-            m = 0
+        #for x in range(1, len(self), 1):
+            # l = 0
+            # r = x-1
+            # m = 0
+            #
+            # if x%10==0:
+            #     print(f"x is {x}")
+            #
+            # while True:
+            #     m = int((l+r)*0.5)
+            #     if l > r:
+            #         break
+            #     if self[m] < self[x]:
+            #         l = m+1
+            #         continue
+            #     if self[m] > self[x]:
+            #         if m == 0:
+            #             m -= 1
+            #             break
+            #         r = m-1
+            #         continue
+            #     break
+            #
+            # for y in range(m+1, x, 1):
+            #     self[y], self[y+1] = self[y+1], self[y]
 
-            if x%10==0:
-                print(f"x is {x}")
+         i = 1
+         j = 1
+         k = self.first
+         for i in range(1, len(self), 1):
+             key = self[i]
+             j = i - 1
 
-            while True:
-                m = int((l+r)*0.5)
-                if l > r:
-                    break
-                if self[m] < self[x]:
-                    l = m+1
-                    continue
-                if self[m] > self[x]:
-                    if m == 0:
-                        m -= 1
-                        break
-                    r = m-1
-                    continue
-                break
-
-            for y in range(m+1, x, 1):
-                self[y], self[y+1] = self[y+1], self[y]
-        #
-        # i = 1
-        # j = 1
-        # k = self.first
-        # for i in range(1, len(self), 1):
-        #     key = self[i]
-        #     j = i - 1
-        #
-        #     while j >= 0 and self[j] > key:
-        #         self[j+1] = self[j]
-        #         j -= 1
-        #     self[j+1] = key
+             while j >= 0 and self[j] > key:
+                 self[j+1] = self[j]
+                 j -= 1
+             self[j+1] = key
 
     def sortDesc(self):
         self.sortAsc()
