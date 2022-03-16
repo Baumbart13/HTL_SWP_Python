@@ -12,7 +12,7 @@ class ArrayBaumList:
     DEFAULTCAPACITY_EMPTY_ELEMENTDATA = pyArr('i')
 
     @classmethod
-    def _getDefaultValueByTypecode(cls, typecode:str) -> object:
+    def _getDefaultValueByTypecode(cls, typecode: str) -> object:
         if cls.integers.__contains__(typecode):
             return 0
         if cls.unicodeCharacters.__contains__(typecode):
@@ -48,14 +48,14 @@ class ArrayBaumList:
                 return i
         return -1
 
-    def __init__(self, typecode: str = 'i', initCapacity:int = 10):
+    def __init__(self, typecode: str = 'i', initCapacity: int = 10):
         """
         :param typecode The datatype that this list stores. Initialized like the standard python _array
         """
         if initCapacity > 0:
-            self._array = pyArr(typecode, [self._getDefaultValueByTypecode(typecode)]*initCapacity)
+            self._array = pyArr(typecode, [self._getDefaultValueByTypecode(typecode)] * initCapacity)
         elif initCapacity < self.DEFAULT_CAPACITY:
-            self._array = pyArr(typecode, [self._getDefaultValueByTypecode(typecode)]*self.DEFAULT_CAPACITY)
+            self._array = pyArr(typecode, [self._getDefaultValueByTypecode(typecode)] * self.DEFAULT_CAPACITY)
         else:
             raise Exception(f"Illegal capacity: {initCapacity}")
         self._count = 0
@@ -67,14 +67,14 @@ class ArrayBaumList:
 
     def _extendToSize(self, size: int) -> None:
         """
-        :param size: If None or less than 1, then it extends capacity by 1
+        :param size: If None or less than 1, then it doubles capacity
         :return: Nothing
         """
         if len(self._array) == size:
             return
         if size is None or size < 1:
-            size = len(self._array)+1
-        t = pyArr(self.typecode(), [self._getDefaultValueOfElements()]*size)
+            size = len(self._array) * 2
+        t = pyArr(self.typecode(), [self._getDefaultValueOfElements()] * size)
         if len(t) > len(self._array):
             for i in range(0, len(self._array), 1):
                 t[i] = self._array[i]
@@ -82,13 +82,15 @@ class ArrayBaumList:
             for i in range(0, len(t), 1):
                 t[i] = self._array[i]
         self._array = t
+        self._capacity = len(self._array)
 
     def _extendAutomatic(self) -> None:
-        self._extendToSize(None)
+        self._extendToSize(len(self._array) * 2)
 
     def fit(self) -> None:
-        if(len(self) < len(self._array)):
-            self._array = self.EMPTY_ELEMENTDATA if len(self)==0 else self._array[:len(self)]
+        if (len(self) < len(self._array)):
+            self._array = self.EMPTY_ELEMENTDATA if len(self) == 0 else self._array[:len(self)]
+        self._capacity = len(self._array)
 
     def __len__(self) -> int:
         return self._count
@@ -109,15 +111,15 @@ class ArrayBaumList:
         self.set(index=index, item=item)
 
     def _needsExtension(self):
-        return len(self._array) <= self._count+10
+        return len(self._array) <= self._count + 10
 
     def _insertBefore(self, index, item) -> None:
         if index < 0:
             raise IndexError()
         if self._needsExtension():
             self._extendAutomatic()
-        for i in range(len(self._array)-1, index, -1):
-            self._array[i] = self._array[i-1]
+        for i in range(len(self._array) - 1, index, -1):
+            self._array[i] = self._array[i - 1]
         self._array[index] = item
         self._count += 1
 
@@ -145,6 +147,8 @@ class ArrayBaumList:
         :param item: The item to be added
         :return: Nothing
         """
+        if not isinstance(item, self._array[0].__class__):
+            raise TypeError("Cannot insert different type")
         if index is None or index == len(self):
             self.addBack(item=item)
             return
@@ -153,6 +157,8 @@ class ArrayBaumList:
         self._insertBefore(index=index, item=item)
 
     def addBack(self, item) -> None:
+        if not isinstance(item, self._array[0].__class__):
+            raise TypeError("Cannot insert different type")
         if self._needsExtension():
             self._extendAutomatic()
         if len(self) == 0:
@@ -163,6 +169,8 @@ class ArrayBaumList:
         self._count += 1
 
     def addFront(self, item) -> None:
+        if not isinstance(item, self._array[0].__class__):
+            raise TypeError("Cannot insert different type")
         if self._needsExtension():
             self._extendAutomatic()
         if len(self) == 0:
@@ -170,7 +178,7 @@ class ArrayBaumList:
             self._count += 1
             return
         for i in range(len(self), 0, -1):
-            self._array[i] = self._array[i-1]
+            self._array[i] = self._array[i - 1]
         self._array[0] = item
         self._count += 1
 
@@ -191,14 +199,14 @@ class ArrayBaumList:
         if item is None and index is not None:
             if index >= len(self) or index < 0:
                 raise IndexError()
-            if index == len(self)-1:
+            if index == len(self) - 1:
                 return self.removeBack()
             if index == 0:
                 return self.removeFirst()
             oldValue = self._array[index]
             self._count -= 1
             for i in range(index, len(self), 1):
-                self._array[i] = self._array[i+1]
+                self._array[i] = self._array[i + 1]
             self._array[len(self)] = self._getDefaultValueOfElements()
 
             return oldValue
@@ -208,20 +216,22 @@ class ArrayBaumList:
                     oldValue = self._array[i]
 
                     for j in range(i+1, len(self), 1):
-                        self._array[i-1] = self._array[i]
+                        self._array[j-1] = self._array[j]
 
                     self._count -= 1
                     return oldValue
+            return None
         elif item is None and index is None:
             for i in range(0, len(self), 1):
                 if self._array[i] == self._getDefaultValueOfElements():
                     oldValue = self._array[i]
 
                     for j in range(i, len(self), 1):
-                        self._array[i-1] = self._array[i]
+                        self._array[i - 1] = self._array[i]
 
                     self._count -= 1
                     return oldValue
+            return None
         else:
             if index > len(self) or index < 0:
                 raise IndexError()
@@ -230,16 +240,17 @@ class ArrayBaumList:
                     oldValue = self._array[i]
 
                     for j in range(i, len(self), 1):
-                        self._array[i-1] = self._array[i]
+                        self._array[i - 1] = self._array[i]
 
                     self._count -= 1
                     return oldValue
+            return None
 
     def removeBack(self) -> object:
         if len(self) == 0:
             return
-        oldValue = self._array[len(self)-1]
-        self._array[len(self)-1] = self._getDefaultValueOfElements()
+        oldValue = self._array[len(self) - 1]
+        self._array[len(self) - 1] = self._getDefaultValueOfElements()
         self._count -= 1
         return oldValue
 
@@ -248,7 +259,7 @@ class ArrayBaumList:
             return
         oldValue = self._array[0]
         for i in range(1, len(self), 1):
-            self._array[i-1] = self._array[i]
+            self._array[i - 1] = self._array[i]
         for i in range(len(self), len(self._array), 1):
             self._array[i] = self._getDefaultValueOfElements()
         self._count -= 1
@@ -264,7 +275,7 @@ class ArrayBaumList:
         return self.get(index=0)
 
     def getBack(self) -> object:
-        return self.get(index=len(self._array)-1)
+        return self.get(index=len(self) - 1)
 
     def get(self, index: int) -> object:
         if index > len(self) or index < 0:
@@ -273,7 +284,8 @@ class ArrayBaumList:
 
     def set(self, index: int, item) -> object:
         if index >= len(self._array) or index < 0:
-            raise IndexError(f'Index is too {"high" if index >= len(self._array) else "low"}. Index: {index}. Length: {len(self)}')
+            raise IndexError(
+                f'Index is too {"high" if index >= len(self._array) else "low"}. Index: {index}. Length: {len(self)}')
         oldValue = self._array[index]
         self._array[index] = item
         return oldValue
@@ -285,7 +297,7 @@ class ArrayBaumList:
         return self._indexOfRange(item=item, start=0, end=len(self))
 
     def lastIndexOf(self, item) -> int:
-        return self._lastIndexOfRange(item=item, start=len(self)-1, end=0)
+        return self._lastIndexOfRange(item=item, start=len(self) - 1, end=0)
 
     def push(self, item) -> None:
         self.addFront(item=item)
@@ -305,13 +317,17 @@ class ArrayBaumList:
     def dequeue(self) -> object:
         return self.removeBack()
 
+    def cleanUnusedSpace(self) -> None:
+        for i in range(self._count, self._capacity, 1):
+            self._array[i] = self._getDefaultValueOfElements()
+
     def clear(self) -> None:
         """Removes all elements, but remains the same capacity"""
         del self._array[:]
         self._count = 0
 
     def toPythonList(self) -> list:
-        l = []*len(self)
+        l = [] * len(self)
         for i in range(0, len(self), 1):
             l.append(self._array[i])
         return l
@@ -329,7 +345,7 @@ class ArrayBaumList:
         return arrList
 
     @classmethod
-    def fromPythonArray(cls, a:pyArr):
+    def fromPythonArray(cls, a: pyArr):
         arrList = ArrayBaumList(initCapacity=len(a))
         if len(a) > len(arrList._array):
             for i in range(0, len(arrList._array)):
@@ -340,8 +356,8 @@ class ArrayBaumList:
         return arrList
 
     def reverse(self) -> None:
-        for i in range(0, int(len(self)*0.5), 1):
-            self._array[i], self._array[len(self)-i-1] = self._array[len(self)-i-1], self._array[i]
+        for i in range(0, int(len(self) * 0.5), 1):
+            self._array[i], self._array[len(self) - i - 1] = self._array[len(self) - i - 1], self._array[i]
 
     def toString(self) -> str:
         string = '['
@@ -353,17 +369,17 @@ class ArrayBaumList:
         return f'{string}]'
 
     def sortAsc(self) -> None:
-         i = 1
-         j = 1
-         k = self[0]
-         for i in range(1, len(self), 1):
-             key = self[i]
-             j = i - 1
+        i = 1
+        j = 1
+        k = self[0]
+        for i in range(1, len(self), 1):
+            key = self[i]
+            j = i - 1
 
-             while j >= 0 and self[j] > key:
-                 self[j+1] = self[j]
-                 j -= 1
-             self[j+1] = key
+            while j >= 0 and self[j] > key:
+                self[j + 1] = self[j]
+                j -= 1
+            self[j + 1] = key
 
     def sortDesc(self) -> None:
         self.sortAsc()

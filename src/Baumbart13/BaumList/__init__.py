@@ -139,6 +139,39 @@ def _testLinkedList():
     print(f"List was sorted {'' if sorted else 'un'}successfully\n"
           f"Needed {(stop-start)} ns for execution")
 
+def _testArrayList():
+    from time import perf_counter_ns as timestamp
+    rng = random.Random()
+    noElements = 10_000
+    print(f"Creating python-list with {noElements} elements")
+    l = [int(rng.random() * noElements * 10) for i in range(noElements)]
+
+    from src.Baumbart13.BaumList.ArrayBaumList import ArrayBaumList
+    print("Converting python-list to ArrayBaumList")
+    ll = ArrayBaumList.fromPythonList(l)
+
+    print("Measuring sorting time")
+    start = timestamp()
+    ll.sortAsc()
+    stop = timestamp()
+    print("Sorted.. now testing if it sorted correctly")
+    sorted = _isSorted(ll)
+    assert sorted
+    print(f"List was sorted {'' if sorted else 'un'}successfully\n"
+          f"Needed {(stop - start)} ns for execution")
+
+    print("Converting python-list to LinkedBaumList")
+    ll = ArrayBaumList.fromPythonList(l)
+    print("Measuring sorting time")
+    start = timestamp()
+    ll.sortDesc()
+    stop = timestamp()
+    print("Sorted.. now testing if it sorted correctly")
+    sorted = _isSortedReversed(ll)
+    assert sorted
+    print(f"List was sorted {'' if sorted else 'un'}successfully\n"
+          f"Needed {(stop-start)} ns for execution")
+
 
 if __name__ == '__main__':
     # from src.Baumbart13.BaumList.ArrayBaumList import ArrayBaumList as myList
@@ -153,4 +186,5 @@ if __name__ == '__main__':
 
     #_testSpecificLinkedList()
     #_testLinkedList()
-    _testSpecificArrayList()
+    _testArrayList()
+    #_testSpecificArrayList()
